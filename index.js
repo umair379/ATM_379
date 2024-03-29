@@ -1,3 +1,4 @@
+#! /usr/bin/env node
 import inquirer from "inquirer";
 let myBalance = 10000;
 let myPin = 1248;
@@ -24,20 +25,26 @@ if (pinAnswer.pin === myPin) {
     if (operationAns.operation === "withdraw") {
         // enter amount
         let amountAns = await inquirer.prompt([
-            {
-                name: "amount",
-                message: "select amount",
-                type: "list",
-                choices: [1000, 2000, 2500, 3500]
-            }
             // {
             //     name: "amount",
-            //     message: "enter your amount",
-            //     type: "number"
+            //     message: "select amount",
+            //     type: "list",
+            //     choices: [1000,2000,2500,3500]
             // }
+            {
+                name: "amount",
+                message: "enter your amount",
+                type: "number"
+            }
         ]);
         // console.log(amountAns.amount);
-        myBalance -= amountAns.amount;
+        // myBalance -= amountAns.amount;
+        if (amountAns.amount <= myBalance) {
+            myBalance -= amountAns.amount;
+        }
+        else {
+            console.log("you don't have a balance");
+        }
         // console.log("your remaining balance is: " + myBalance)
         console.log(`your remaining balance is: ${myBalance}`);
     }
